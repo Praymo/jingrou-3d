@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">SK 海力士全球交易敞口图</title>
+  <desc id="desc">以韩国普通股为底层权益，梳理美国 ADS、欧洲 GDR、港股产品、期权、链上产品和行业对照的关系。</desc>
+  <rect width="1200" height="760" fill="#f6f7f8"/>
+  <g font-family="Kanit, Microsoft YaHei, Noto Sans SC, sans-serif">
+    <text x="72" y="78" fill="#202228" font-size="34" font-weight="700">SK 海力士全球交易敞口</text>
+    <text x="72" y="116" fill="#737983" font-size="18">从底层权益出发，区分直接权益、衍生敞口与行业替代</text>
+
+    <rect x="72" y="158" width="1056" height="112" rx="10" fill="#ffffff" stroke="#d9dde2" stroke-width="2"/>
+    <text x="102" y="194" fill="#cf75c6" font-size="15" font-weight="700" letter-spacing="1">UNDERLYING EQUITY</text>
+    <text x="102" y="236" fill="#202228" font-size="28" font-weight="700">韩国普通股 · 000660</text>
+    <text x="760" y="218" fill="#737983" font-size="17">研究锚点</text>
+    <text x="760" y="244" fill="#202228" font-size="18" font-weight="600">本地价格、汇率与公司基本面</text>
+
+    <path d="M600 270 V318 M600 318 H310 M600 318 H890" fill="none" stroke="#cf75c6" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="600" cy="318" r="6" fill="#cf75c6"/>
+
+    <text x="72" y="356" fill="#737983" font-size="15" font-weight="700" letter-spacing="1">DIRECT EQUITY MAPPING</text>
+    <text x="648" y="356" fill="#737983" font-size="15" font-weight="700" letter-spacing="1">DERIVED EXPOSURE</text>
+
+    <g>
+      <rect x="72" y="382" width="512" height="94" rx="9" fill="#ffffff" stroke="#d9dde2" stroke-width="2"/>
+      <rect x="92" y="402" width="6" height="54" rx="3" fill="#cf75c6"/>
+      <text x="120" y="420" fill="#737983" font-size="15">美国 ADS</text>
+      <text x="120" y="451" fill="#202228" font-size="22" font-weight="700">SKHY · 10 ADS = 1 股</text>
+
+      <rect x="72" y="492" width="512" height="94" rx="9" fill="#ffffff" stroke="#d9dde2" stroke-width="2"/>
+      <rect x="92" y="512" width="6" height="54" rx="3" fill="#cf75c6"/>
+      <text x="120" y="530" fill="#737983" font-size="15">欧洲 GDR</text>
+      <text x="120" y="561" fill="#202228" font-size="22" font-weight="700">HYXS / HY9H · 1 GDR = 1 股</text>
+    </g>
+
+    <g>
+      <rect x="648" y="382" width="232" height="94" rx="9" fill="#ffffff" stroke="#d9dde2" stroke-width="2"/>
+      <text x="672" y="420" fill="#737983" font-size="15">港股产品</text>
+      <text x="672" y="451" fill="#202228" font-size="22" font-weight="700">07709</text>
+
+      <rect x="896" y="382" width="232" height="94" rx="9" fill="#ffffff" stroke="#d9dde2" stroke-width="2"/>
+      <text x="920" y="420" fill="#737983" font-size="15">期权</text>
+      <text x="920" y="451" fill="#202228" font-size="22" font-weight="700">基于 ADS</text>
+
+      <rect x="648" y="492" width="232" height="94" rx="9" fill="#ffffff" stroke="#d9dde2" stroke-width="2"/>
+      <text x="672" y="530" fill="#737983" font-size="15">链上产品</text>
+      <text x="672" y="561" fill="#202228" font-size="22" font-weight="700">SKHYx</text>
+
+      <rect x="896" y="492" width="232" height="94" rx="9" fill="#ffffff" stroke="#d9dde2" stroke-width="2" stroke-dasharray="7 7"/>
+      <text x="920" y="530" fill="#737983" font-size="15">行业对照</text>
+      <text x="920" y="561" fill="#202228" font-size="22" font-weight="700">非直接映射</text>
+    </g>
+
+    <line x1="72" y1="634" x2="1128" y2="634" stroke="#d9dde2" stroke-width="2"/>
+    <text x="72" y="678" fill="#cf75c6" font-size="15" font-weight="700">RESEARCH LENS</text>
+    <text x="72" y="712" fill="#34363c" font-size="18">比较重点：权益映射 · 汇率口径 · 流动性 · 转换机制 · 交易时段 · 投资者准入</text>
+  </g>
+</svg>

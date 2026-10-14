@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">Memory chip thesis illustration</title>
+  <desc id="desc">A stylized memory chip connected to demand curves and data flows.</desc>
+  <rect width="960" height="600" fill="#ffffff"/>
+  <rect x="250" y="128" width="460" height="344" rx="28" fill="#cf75c6"/>
+  <rect x="304" y="182" width="352" height="236" rx="18" fill="#ffffff" stroke="#7d838c" stroke-width="6"/>
+  <g fill="#cf75c6">
+    <rect x="344" y="222" width="68" height="58" rx="8"/>
+    <rect x="446" y="222" width="68" height="58" rx="8"/>
+    <rect x="548" y="222" width="68" height="58" rx="8"/>
+    <rect x="344" y="320" width="68" height="58" rx="8"/>
+    <rect x="446" y="320" width="68" height="58" rx="8"/>
+    <rect x="548" y="320" width="68" height="58" rx="8"/>
+  </g>
+  <g stroke="#cf75c6" stroke-width="8" stroke-linecap="round">
+    <path d="M112 238 C188 186 216 210 250 210"/>
+    <path d="M112 362 C188 414 216 390 250 390"/>
+    <path d="M710 208 C766 186 806 202 852 160"/>
+    <path d="M710 392 C772 420 814 410 852 454"/>
+  </g>
+  <g fill="#7d838c">
+    <circle cx="112" cy="238" r="18"/>
+    <circle cx="112" cy="362" r="18"/>
+    <circle cx="852" cy="160" r="18"/>
+    <circle cx="852" cy="454" r="18"/>
+  </g>
+  <g fill="#7d838c">
+    <rect x="222" y="154" width="28" height="18" rx="4"/>
+    <rect x="222" y="214" width="28" height="18" rx="4"/>
+    <rect x="222" y="274" width="28" height="18" rx="4"/>
+    <rect x="222" y="334" width="28" height="18" rx="4"/>
+    <rect x="222" y="394" width="28" height="18" rx="4"/>
+    <rect x="710" y="154" width="28" height="18" rx="4"/>
+    <rect x="710" y="214" width="28" height="18" rx="4"/>
+    <rect x="710" y="274" width="28" height="18" rx="4"/>
+    <rect x="710" y="334" width="28" height="18" rx="4"/>
+    <rect x="710" y="394" width="28" height="18" rx="4"/>
+  </g>
+  <text x="96" y="548" fill="#cf75c6" font-family="Kanit, Microsoft YaHei, Noto Sans SC, sans-serif" font-size="28" font-weight="700">Memory Chips Thesis</text>
+</svg>

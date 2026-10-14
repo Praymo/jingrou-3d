@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NFT 头像图像识别 | 曾婧柔</title>
+    <meta name="description" content="NFT 头像图像识别项目详情。" />
+    <link rel="icon" href="assets/jingrou_avatar_card.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="jingrou-design-system.css" />
+    <link rel="stylesheet" href="project-pages.css" />
+  </head>
+  <body class="project-page">
+    <header class="project-site-header"><a class="project-brand" href="jingrou-3d.html" aria-label="返回主页">JZ</a><nav><a href="jingrou-3d.html">Home</a><a href="projects.html" aria-current="page">Projects</a><a href="research.html">Research</a><a href="mailto:praymo666@gmail.com">Contact</a></nav></header>
+    <main class="project-main">
+      <section class="project-detail-hero">
+        <div class="project-breadcrumbs"><a href="projects.html">Projects</a><span>/</span><span>NFT Image Recognition</span></div>
+        <p class="project-eyebrow">Applied AI · 03</p>
+        <h1>NFT 头像图像识别</h1>
+        <p class="project-detail-lead">用手工标签、验证样本和错误诊断检查分类模型，更关注数据定义是否可信，而不是只追逐模型分数。</p>
+        <div class="project-detail-meta"><div><span>任务</span><strong>头像分类</strong></div><div><span>方法</span><strong>标签检查与混淆诊断</strong></div><div><span>重点</span><strong>数据质量优先</strong></div></div>
+      </section>
+      <div class="project-figure-grid"><figure><img src="assets/nft_error_examples.png" alt="NFT 分类最好和最差样本" /><figcaption>验证与测试复盘中的代表性样本。</figcaption></figure><figure><img src="assets/nft_confusion_matrix.png" alt="NFT 分类混淆矩阵" /><figcaption>类别之间的主要混淆关系。</figcaption></figure></div>
+      <section class="project-value-grid" aria-label="项目价值">
+        <article><span>原来的问题</span><h2>一个准确率掩盖了错误来自哪里</h2><p>模型、样本覆盖和人工标签都可能造成误判，只看总分无法决定下一步应该改什么。</p></article>
+        <article><span>项目带来的改变</span><h2>把错误还原到具体样本与标签</h2><p>通过代表性样本、真实标签和混淆关系，区分视觉模糊、标签不一致与模型判断问题。</p></article>
+        <article><span>最终价值</span><h2>停止无效换模型，优先修复数据</h2><p>迭代方向从追逐分数变成改善类别定义和样本质量，让后续模型调整建立在真实问题上。</p></article>
+      </section>
+      <section class="project-detail-section"><div><p class="project-kicker">Purpose</p><h2>判断头像中的视觉特征能否支持稳定分类</h2></div><div><p>项目以 NFT 像素头像为样本，尝试识别性别表达相关类别。重点不是做一个高风险的人脸判断产品，而是通过一个边界清楚的小型任务，学习如何建立标签、验证模型并解释错误。</p><p>最终希望得到的不只是一个准确率，而是一套能够回答“模型在哪些样本上可靠、为什么会错、数据定义是否合理”的分析过程。</p></div></section>
+      <section class="project-detail-section"><div><p class="project-kicker">Challenges</p><h2>错误可能来自图像，也可能来自标签定义</h2></div><div class="project-evidence-list"><div><span>视觉模糊</span><strong>像素头像的发型、配饰和肤色风格高度多样，单一特征无法稳定代表类别。</strong></div><div><span>样本有限</span><strong>小数据集容易让结果被少数典型样本主导，验证集必须覆盖真实的模糊情况。</strong></div><div><span>标签噪声</span><strong>人工标签本身可能含糊或不一致，模型错误不能全部归因于模型结构。</strong></div></div></section>
+      <section class="project-detail-section"><div><p class="project-kicker">Solution</p><h2>从代表性样本反推数据问题</h2></div><div><p>先建立人工标注样本和独立验证集，再比较预测标签与真实标签；随后把分类最好、最差和最容易混淆的样本并列复盘，并结合混淆矩阵观察错误是否集中在特定类别。</p><p>这种做法把注意力从“继续换模型”转向数据覆盖、标签一致性和类别边界，让每次迭代都针对已观察到的问题。</p></div></section>
+      <section class="project-detail-section"><div><p class="project-kicker">Outcome</p><h2>数据质量比单一模型分数更重要</h2></div><div class="project-evidence-list"><div><span>数据集</span><strong>类别边界必须明确，样本覆盖需要和真实任务一致。</strong></div><div><span>标签</span><strong>错误或含糊标签会直接限制模型表现上限。</strong></div><div><span>诊断</span><strong>代表性错误样本比单一准确率更能解释问题。</strong></div><div><span>迭代</span><strong>先修复数据定义，再决定是否需要调整模型。</strong></div></div></section>
+      <nav class="project-pager" aria-label="项目翻页"><a href="project-math-system.html"><span>上一项</span><strong>← 高中数学 SaaS</strong></a><a href="projects.html"><span>返回</span><strong>项目目录</strong></a></nav>
+    </main>
+  </body>
+</html>

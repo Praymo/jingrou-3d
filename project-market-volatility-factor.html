@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Market Volatility × Factor Robustness | Jingrou Zeng</title>
+<meta name="description" content="A reproducible walk-forward study of volatility regimes, factor robustness and ex-ante risk budgeting after turnover costs.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Market Volatility × Factor Robustness">
+<meta property="og:description" content="A reproducible walk-forward study of volatility regimes, factor robustness and ex-ante risk budgeting after turnover costs.">
+<meta property="og:url" content="https://praymo.github.io/jingrou-3d/project-market-volatility-factor.html">
+<meta property="og:image" content="https://praymo.github.io/jingrou-3d/assets/factor_sharpe_by_regime.png">
+<style>
+:root{--navy:#14395b;--blue:#2d6a9f;--ink:#1c2732;--muted:#667482;--line:#dbe4ec;--pale:#eef4f8;--red:#a83434}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,"PingFang SC",sans-serif;color:var(--ink);line-height:1.55;background:#f5f8fa}
+.page{max-width:1080px;margin:0 auto;background:#fff;box-shadow:0 0 30px rgba(20,57,91,.08)}
+header{padding:64px 72px 44px;background:linear-gradient(135deg,#0f2d49,#194d77);color:#fff}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.72} h1{font-size:44px;line-height:1.12;margin:12px 0 14px;max-width:780px}
+.lead{font-size:19px;max-width:780px;color:#dceaf5} .meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:28px;font-size:13px;color:#c6d9e8}
+main{padding:48px 72px 70px} section{margin:0 0 52px} h2{font-size:25px;color:var(--navy);margin:0 0 14px} h3{color:var(--navy);margin:28px 0 10px}
+.callout{padding:22px 24px;background:var(--pale);border-left:4px solid var(--blue);font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px} .card{border:1px solid var(--line);padding:18px;border-radius:5px}
+.card span{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em} .card strong{display:block;color:var(--navy);font-size:24px;margin-top:8px}
+figure{margin:28px 0} figure img{width:100%;border:1px solid var(--line)} figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.back{display:inline-block;margin-bottom:26px;color:#dceaf5;text-decoration:none;font-size:13px}.back:hover{text-decoration:underline}
+.data-table{border-collapse:collapse;width:100%;font-size:12px;display:block;overflow-x:auto} .data-table th{background:var(--navy);color:white;text-align:left;padding:9px;white-space:nowrap} .data-table td{border-bottom:1px solid var(--line);padding:8px 9px;white-space:nowrap}
+ol li,ul li{margin:7px 0} .limit{color:#5c3a16;background:#fff8e8;border-left:4px solid #d69e2e;padding:18px 22px}
+footer{padding:25px 72px;background:#edf3f7;color:var(--muted);font-size:12px} code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#eef2f5;padding:2px 5px}
+@media(max-width:760px){header,main,footer{padding-left:24px;padding-right:24px}h1{font-size:34px}.grid{grid-template-columns:1fr}}
+</style></head><body><div class="page">
+<header><a class="back" href="projects.html">← Back to projects</a><div class="eyebrow">Quant research case study · 2026</div><h1>Market Volatility × Factor Robustness</h1>
+<p class="lead">A walk-forward test of whether volatility regimes change factor payoffs—and whether a simple, ex-ante risk budget reduces drawdown in a diversified factor sleeve after costs.</p>
+<div class="meta"><span>Author: Jingrou Zeng</span><span>Sample: 2011-01-03 to 2026-06-30</span><span>Python · pandas · reproducible pipeline</span></div></header>
+<main>
+<section><h2>Executive finding</h2><div class="callout">Factor behavior is state-dependent, but not every apparent regime gap is statistically robust. The largest Sharpe deterioration from low to high volatility occurs in <strong>RMW</strong>. A pre-specified de-risking rule lowers annualized volatility from <strong>4.6%</strong> to <strong>2.8%</strong> and changes maximum drawdown from <strong>-12.8%</strong> to <strong>-6.3%</strong>, after a 2 bp turnover cost. The cost is lower annualized return and Sharpe; the result supports a risk-control use case, not an alpha claim.</div></section>
+<section><div class="grid"><div class="card"><span>Observation window</span><strong>3,895 days</strong></div><div class="card"><span>Factors tested</span><strong>6</strong></div><div class="card"><span>Robust high-low gaps</span><strong>2 / 6</strong></div></div></section>
+<section><h2>1. Observation → hypothesis</h2><p>Market stress does more than raise total volatility. Funding constraints, deleveraging, crowded positioning and changes in investor risk tolerance can alter the return distribution of long-short equity factors. The testable hypothesis is therefore:</p><p><strong>H1:</strong> conditional factor Sharpe ratios differ across volatility states. <strong>H2:</strong> reducing aggregate factor exposure in high-volatility states can improve drawdown control without using same-day information.</p></section>
+<section><h2>2. Methodology and anti-leakage rules</h2><ol><li><strong>Inputs:</strong> daily Fama-French five factors plus momentum; Cboe VIX close.</li><li><strong>Ex-ante state:</strong> day t uses VIX observed on t-1. Low/Mid/High cutoffs are rolling 33rd/67th percentiles computed over the preceding 756 trading days, with a 252-day warm-up.</li><li><strong>Descriptive test:</strong> compare annualized return, volatility and Sharpe by state.</li><li><strong>Uncertainty:</strong> estimate 95% intervals for High-minus-Low annualized mean returns with 2,000 moving-block bootstrap draws (20-day blocks).</li><li><strong>Execution rule:</strong> start from an equal-weight six-factor sleeve; de-risk toward 5% ex-ante volatility using trailing 63-day data; apply risk budgets of 1.00/0.75/0.50 in Low/Mid/High regimes; never lever above 1.00; charge 2 bp per unit of exposure turnover.</li><li><strong>Validation:</strong> report full sample, 2010-2019, 2020-latest and VIX≥30 stress days separately.</li></ol></section>
+<section><h2>3. Factor behavior changes with the volatility state</h2><figure><img src="assets/factor_sharpe_by_regime.png" alt="Factor Sharpe by volatility regime"><figcaption>Each day's regime is known before that day's factor return. This is a conditional diagnostic, not proof of causality.</figcaption></figure><table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Regime</th>
+      <th>Factor</th>
+      <th>N</th>
+      <th>Ann. return</th>
+      <th>Ann. vol</th>
+      <th>Sharpe</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Low</td>
+      <td>Mkt-RF</td>
+      <td>1498</td>
+      <td>6.5%</td>
+      <td>10.5%</td>
+      <td>0.62</td>
+    </tr>
+    <tr>
+      <td>Low</td>
+      <td>SMB</td>
+      <td>1498</td>
+      <td>-7.5%</td>
+      <td>9.0%</td>
+      <td>-0.83</td>
+    </tr>
+    <tr>
+      <td>Low</td>
+      <td>HML</td>
+      <td>1498</td>
+      <td>-2.0%</td>
+      <td>8.4%</td>
+      <td>-0.24</td>
+    </tr>
+    <tr>
+      <td>Low</td>
+      <td>RMW</td>
+      <td>1498</td>
+      <td>3.3%</td>
+      <td>6.0%</td>
+      <td>0.55</td>
+    </tr>
+    <tr>
+      <td>Low</td>
+      <td>CMA</td>
+      <td>1498</td>
+      <td>-5.5%</td>
+      <td>5.6%</td>
+      <td>-0.99</td>
+    </tr>
+    <tr>
+      <td>Low</td>
+      <td>Mom</td>
+      <td>1498</td>
+      <td>1.9%</td>
+      <td>10.7%</td>
+      <td>0.18</td>
+    </tr>
+    <tr>
+      <td>Mid</td>
+      <td>Mkt-RF</td>
+      <td>1215</td>
+      <td>12.0%</td>
+      <td>13.6%</td>
+      <td>0.89</td>
+    </tr>
+    <tr>
+      <td>Mid</td>
+      <td>SMB</td>
+      <td>1215</td>
+      <td>-2.5%</td>
+      <td>9.6%</td>
+      <td>-0.26</td>
+    </tr>
+    <tr>
+      <td>Mid</td>
+      <td>HML</td>
+      <td>1215</td>
+      <td>7.0%</td>
+      <td>12.0%</td>
+      <td>0.58</td>
+    </tr>
+    <tr>
+      <td>Mid</td>
+      <td>RMW</td>
+      <td>1215</td>
+      <td>3.1%</td>
+      <td>8.5%</td>
+      <td>0.36</td>
+    </tr>
+    <tr>
+      <td>Mid</td>
+      <td>CMA</td>
+      <td>1215</td>
+      <td>2.7%</td>
+      <td>7.2%</td>
+      <td>0.38</td>
+    </tr>
+    <tr>
+      <td>Mid</td>
+      <td>Mom</td>
+      <td>1215</td>
+      <td>7.2%</td>
+      <td>14.7%</td>
+      <td>0.49</td>
+    </tr>
+    <tr>
+      <td>High</td>
+      <td>Mkt-RF</td>
+      <td>1182</td>
+      <td>23.1%</td>
+      <td>26.4%</td>
+      <td>0.88</td>
+    </tr>
+    <tr>
+      <td>High</td>
+      <td>SMB</td>
+      <td>1182</td>
+      <td>6.9%</td>
+      <td>11.9%</td>
+      <td>0.58</td>
+    </tr>
+    <tr>
+      <td>High</td>
+      <td>HML</td>
+      <td>1182</td>
+      <td>-5.9%</td>
+      <td>16.7%</td>
+      <td>-0.35</td>
+    </tr>
+    <tr>
+      <td>High</td>
+      <td>RMW</td>
+      <td>1182</td>
+      <td>-3.1%</td>
+      <td>9.6%</td>
+      <td>-0.32</td>
+    </tr>
+    <tr>
+      <td>High</td>
+      <td>CMA</td>
+      <td>1182</td>
+      <td>3.0%</td>
+      <td>8.1%</td>
+      <td>0.37</td>
+    </tr>
+    <tr>
+      <td>High</td>
+      <td>Mom</td>
+      <td>1182</td>
+      <td>6.6%</td>
+      <td>21.7%</td>
+      <td>0.31</td>
+    </tr>
+  </tbody>
+</table></section>
+<section><h2>4. Robustness: the confidence interval matters</h2><p>The block bootstrap preserves short-run dependence better than resampling individual days. The factors with a high-low return gap that excludes zero are: <strong>SMB, CMA</strong>. Wide intervals are treated as uncertainty, not as a hidden trading signal.</p><table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Factor</th>
+      <th>High minus Low ann. return</th>
+      <th>95% CI low</th>
+      <th>95% CI high</th>
+      <th>Robust sign</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mkt-RF</td>
+      <td>16.6%</td>
+      <td>-5.7%</td>
+      <td>38.6%</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>SMB</td>
+      <td>14.4%</td>
+      <td>2.1%</td>
+      <td>26.9%</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>HML</td>
+      <td>-3.9%</td>
+      <td>-19.6%</td>
+      <td>10.7%</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>RMW</td>
+      <td>-6.4%</td>
+      <td>-14.5%</td>
+      <td>2.6%</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>CMA</td>
+      <td>8.5%</td>
+      <td>0.3%</td>
+      <td>16.7%</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Mom</td>
+      <td>4.7%</td>
+      <td>-15.0%</td>
+      <td>23.6%</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table></section>
+<section><h2>5. Walk-forward execution framework</h2><figure><img src="assets/factor_vix_and_exposure.png" alt="Lagged VIX and factor exposure"><figcaption>Exposure is a deterministic function of lagged information, rolling volatility and the pre-specified regime budget.</figcaption></figure><figure><img src="assets/factor_strategy_cumulative.png" alt="Cumulative strategy comparison"><figcaption>Both series are long-short factor sleeves. They are research diagnostics and do not include implementation constraints of actual securities.</figcaption></figure><table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Window</th>
+      <th>Strategy</th>
+      <th>N</th>
+      <th>Ann. return</th>
+      <th>Ann. vol</th>
+      <th>Sharpe</th>
+      <th>Max drawdown</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Full sample</td>
+      <td>Static EW</td>
+      <td>3895</td>
+      <td>2.9%</td>
+      <td>4.6%</td>
+      <td>0.62</td>
+      <td>-12.8%</td>
+    </tr>
+    <tr>
+      <td>Full sample</td>
+      <td>Regime aware</td>
+      <td>3895</td>
+      <td>1.4%</td>
+      <td>2.8%</td>
+      <td>0.50</td>
+      <td>-6.3%</td>
+    </tr>
+    <tr>
+      <td>2010-2019</td>
+      <td>Static EW</td>
+      <td>2264</td>
+      <td>2.3%</td>
+      <td>3.1%</td>
+      <td>0.72</td>
+      <td>-4.6%</td>
+    </tr>
+    <tr>
+      <td>2010-2019</td>
+      <td>Regime aware</td>
+      <td>2264</td>
+      <td>1.3%</td>
+      <td>2.4%</td>
+      <td>0.54</td>
+      <td>-3.1%</td>
+    </tr>
+    <tr>
+      <td>2020-latest</td>
+      <td>Static EW</td>
+      <td>1631</td>
+      <td>3.7%</td>
+      <td>6.1%</td>
+      <td>0.61</td>
+      <td>-11.0%</td>
+    </tr>
+    <tr>
+      <td>2020-latest</td>
+      <td>Regime aware</td>
+      <td>1631</td>
+      <td>1.6%</td>
+      <td>3.3%</td>
+      <td>0.48</td>
+      <td>-5.8%</td>
+    </tr>
+    <tr>
+      <td>VIX &gt;= 30</td>
+      <td>Static EW</td>
+      <td>233</td>
+      <td>3.5%</td>
+      <td>9.4%</td>
+      <td>0.37</td>
+      <td>-8.3%</td>
+    </tr>
+    <tr>
+      <td>VIX &gt;= 30</td>
+      <td>Regime aware</td>
+      <td>233</td>
+      <td>0.2%</td>
+      <td>3.3%</td>
+      <td>0.08</td>
+      <td>-3.2%</td>
+    </tr>
+  </tbody>
+</table></section>
+<section><h2>6. Interpretation and decision rules</h2><ul><li><strong>Use the regime as a risk control, not a return oracle.</strong> Volatility states are more reliable for scaling exposure than for claiming a factor will have a positive return.</li><li><strong>Preserve falsifiability.</strong> A factor-state relationship is promoted only when its interval excludes zero and its sign is stable across subperiods.</li><li><strong>Separate research from deployment.</strong> A production version would need investable factor portfolios, financing/borrow costs, market impact, capacity and region-specific validation.</li><li><strong>Monitor drift.</strong> Re-estimate only on a scheduled cadence and compare new results with the frozen baseline to avoid threshold chasing.</li></ul></section>
+<section><h2>7. Limitations</h2><div class="limit">Fama-French factors are research portfolios, not directly tradeable products. VIX is a US equity volatility proxy and may partly reflect information also embedded in factor returns. Results are conditional associations, not causal estimates. The sample ends with the latest common observation in the downloaded files (2026-06-30); the factor archive itself is based on the June 2026 CRSP vintage.</div></section>
+<section><h2>Reproducibility</h2><p>Run <code>python src/analyze.py</code> from the project folder. The script reads the raw official-source files, rebuilds the processed dataset, tables, figures and this report. Random resampling uses a fixed seed.</p><p><strong>Sources:</strong> Kenneth R. French Data Library, “Fama/French 5 Factors (2x3) [Daily]” and “Momentum Factor [Daily]”; Cboe, “VIX Historical Price Data.”</p></section>
+</main><footer>Prepared as a quantitative research portfolio case. The design intentionally separates observation, hypothesis, measurable rules, validation and limitations.</footer>
+</div></body></html>
