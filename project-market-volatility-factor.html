@@ -20,6 +20,7 @@ main{padding:48px 72px 70px} section{margin:0 0 52px} h2{font-size:25px;color:va
 .card span{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em} .card strong{display:block;color:var(--navy);font-size:24px;margin-top:8px}
 figure{margin:28px 0} figure img{width:100%;border:1px solid var(--line)} figcaption{font-size:12px;color:var(--muted);margin-top:8px}
 .back{display:inline-block;margin-bottom:26px;color:#dceaf5;text-decoration:none;font-size:13px}.back:hover{text-decoration:underline}
+.pdf-actions{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:24px;align-items:center;font-size:13px}.pdf-actions a{color:#fff;padding:9px 14px;border:1px solid #9bb8d0;border-radius:4px;text-decoration:none}.pdf-actions a:hover{background:#ffffff18}
 .data-table{border-collapse:collapse;width:100%;font-size:12px;display:block;overflow-x:auto} .data-table th{background:var(--navy);color:white;text-align:left;padding:9px;white-space:nowrap} .data-table td{border-bottom:1px solid var(--line);padding:8px 9px;white-space:nowrap}
 ol li,ul li{margin:7px 0} .limit{color:#5c3a16;background:#fff8e8;border-left:4px solid #d69e2e;padding:18px 22px}
 footer{padding:25px 72px;background:#edf3f7;color:var(--muted);font-size:12px} code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#eef2f5;padding:2px 5px}
@@ -27,7 +28,7 @@ footer{padding:25px 72px;background:#edf3f7;color:var(--muted);font-size:12px} c
 </style></head><body><div class="page">
 <header><a class="back" href="projects.html">← Back to projects</a><div class="eyebrow">Quant research case study · 2026</div><h1>Market Volatility × Factor Robustness</h1>
 <p class="lead">A walk-forward test of whether volatility regimes change factor payoffs—and whether a simple, ex-ante risk budget reduces drawdown in a diversified factor sleeve after costs.</p>
-<div class="meta"><span>Author: Jingrou Zeng</span><span>Sample: 2011-01-03 to 2026-06-30</span><span>Python · pandas · reproducible pipeline</span></div></header>
+<div class="meta"><span>Author: Jingrou Zeng</span><span>Sample: 2011-01-03 to 2026-06-30</span><span>Python · pandas · reproducible pipeline</span></div><div class="pdf-actions"><a href="report.html?id=factor-robustness&amp;lang=en">Read the PDF report ↗</a><a href="reports/market-volatility-factor-robustness-20260824.pdf" download="Market_Volatility_Factor_Robustness.pdf">Download PDF · 6 pages · 456 KB ↓</a></div></header>
 <main>
 <section><h2>Executive finding</h2><div class="callout">Factor behavior is state-dependent, but not every apparent regime gap is statistically robust. The largest Sharpe deterioration from low to high volatility occurs in <strong>RMW</strong>. A pre-specified de-risking rule lowers annualized volatility from <strong>4.6%</strong> to <strong>2.8%</strong> and changes maximum drawdown from <strong>-12.8%</strong> to <strong>-6.3%</strong>, after a 2 bp turnover cost. The cost is lower annualized return and Sharpe; the result supports a risk-control use case, not an alpha claim.</div></section>
 <section><div class="grid"><div class="card"><span>Observation window</span><strong>3,895 days</strong></div><div class="card"><span>Factors tested</span><strong>6</strong></div><div class="card"><span>Robust high-low gaps</span><strong>2 / 6</strong></div></div></section>

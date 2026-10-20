@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="在线阅读曾婧柔的研究报告，支持翻页、缩放与下载 PDF。" />
+  <title>报告阅读 | 曾婧柔 Jingrou Zeng</title>
+  <link rel="icon" href="assets/jingrou_avatar_card.png" />
+  <link rel="stylesheet" href="report-reader.css?v=20261020" />
+  <script type="module" src="report-reader.js?v=20261020"></script>
+</head>
+<body data-reader-state="loading">
+  <header class="reader-header"><a class="reader-brand" href="jingrou-3d.html" aria-label="返回主页">JZ</a><span class="reader-wordmark">RESEARCH <i>/</i> READING ROOM</span><a id="back-link" href="research.html#reports">← 返回研究页</a></header>
+  <main>
+    <section class="report-intro">
+      <p id="report-category">RESEARCH ARCHIVE</p>
+      <h1 id="report-title">报告阅读</h1>
+      <p id="report-meta" class="reader-meta"></p>
+      <p id="report-note" class="reader-note"></p>
+      <div class="reader-file-actions"><a id="download-pdf" class="reader-download" hidden>下载 PDF ↓</a><a id="native-pdf" target="_blank" rel="noopener" hidden>打开原始 PDF ↗</a></div>
+    </section>
+    <section class="reader" aria-label="报告阅读器">
+      <nav class="reader-toolbar" aria-label="阅读控制">
+        <div class="page-controls"><button id="previous-page" type="button" aria-label="上一页" disabled>←</button><label for="page-number" id="page-label">页码</label><input id="page-number" type="number" min="1" value="1" inputmode="numeric" disabled /><span>/ <b id="page-total">—</b></span><button id="next-page" type="button" aria-label="下一页" disabled>→</button></div>
+        <label class="zoom-control"><span id="zoom-label">缩放</span><select id="zoom" disabled><option value="fit">适合宽度</option><option value="1">100%</option><option value="1.5">150%</option><option value="2">200%</option></select></label>
+      </nav>
+      <p id="reader-status" role="status" aria-live="polite">正在准备阅读器…</p>
+      <div id="document-stage" class="document-stage" tabindex="0" aria-label="报告页面"><div id="paper" class="paper"></div></div>
+      <p class="reader-footnote" id="reader-tip">可用 ← / → 翻页；也可输入页码。需要保存或使用其他阅读器，请下载 PDF。</p>
+    </section>
+    <noscript><p class="no-script">请启用 JavaScript 使用在线阅读器，或<a href="research.html#reports">返回研究页直接下载 PDF</a>。</p></noscript>
+  </main>
+</body>
+</html>
