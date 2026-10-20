@@ -1,4 +1,4 @@
-import {reports,fileSize} from "./report-catalog.js";
+import {reports,fileSize} from "./report-catalog.js?v=20261020-update2";
 
 // Add compact reading actions to the existing research summaries as well.
 for(const [id,report] of Object.entries(reports)){

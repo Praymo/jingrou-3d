@@ -1,4 +1,4 @@
-import {reports,fileSize} from "./report-catalog.js";
+import {reports,fileSize} from "./report-catalog.js?v=20261020-update2";
 
 const params=new URLSearchParams(location.search);
 const id=params.get("id");
@@ -28,6 +28,7 @@ if(!report){
   $("#report-category").textContent=report.category[lang];
   $("#report-meta").textContent=`${report.date.replaceAll("-",".")}  ·  ${report.pages} ${text("页","pages")}  ·  PDF  ·  ${fileSize(report.bytes)}`;
   $("#report-note").textContent=report.note[lang];
+  $("#report-note").hidden=!report.note[lang];
   $("#back-link").href="research.html#"+(report.anchor||"reports");
   const download=$("#download-pdf");download.href=report.file;download.download=report.title.zh+".pdf";download.hidden=false;download.textContent=text("下载 PDF ↓","Download PDF ↓");
   const native=$("#native-pdf");native.href=report.file;native.hidden=false;native.textContent=report.original?text("打开原始 PDF ↗","Open original PDF ↗"):text("打开公开版 PDF ↗","Open public PDF ↗");

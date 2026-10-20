@@ -25,8 +25,8 @@ export const reports = {
     title: {zh: "隐性债务治理对地级市城投净融资的影响", en: "Implicit Debt Governance & LGFV Net Financing"},
     category: {zh: "本科论文 · 公开阅读版", en: "Undergraduate thesis · Public reading copy"},
     description: {zh: "围绕政策冲击、连续处理强度 DID、平行趋势与稳健性检验，展示完整实证研究。", en: "The full empirical study, including continuous-treatment DID, parallel trends, and robustness checks."},
-    note: {zh: "公开阅读版：仅移除含学号及签名栏的 3 页前置材料。摘要、正文、参考文献与致谢保留，正文页码沿用原稿。", en: "Public reading copy: three administrative front pages containing a student ID and signature fields were omitted. Abstracts, research, references, and acknowledgments are retained, with original printed pagination."},
-    file: "reports/lgfv-implicit-debt-thesis-public.pdf", cover: "reports/covers/lgfv-thesis.jpg", pages: 31, bytes: 1499196, date: "2026-04-12", anchor: "did-research", original: false
+    note: {zh: "", en: ""},
+    file: "reports/lgfv-implicit-debt-thesis-public.pdf?v=20261020-no-ack", cover: "reports/covers/lgfv-thesis.jpg", pages: 30, bytes: 1493698, date: "2026-04-12", anchor: "did-research", original: false
   }
 };
 
